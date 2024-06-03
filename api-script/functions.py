@@ -1,4 +1,4 @@
-from os import getcwd, path
+from os import getcwd, path, listdir
 import mysql.connector
 import subprocess
 
@@ -156,3 +156,36 @@ def insertIntoPrismaSchema(tableName, modelName):
         file.writelines(lines)
         
     subprocess.run(["yarn", "prisma", "generate"])
+    
+    
+    
+    
+## API    
+    
+def getModels():
+    dir_path = path.join(getcwd(), "..", "api-base", "src", "models")
+    files = [f for f in listdir(dir_path) if path.isfile(path.join(dir_path, f)) and f not in ["index.js", "_base.js"]]
+    arr = []
+    for f in files:
+        split = f.split('_')[1].split('.')[0]
+        split = split[0].capitalize() + split[1:]
+        arr.append(split)
+
+    return files, arr
+
+def updateModelName(fileName, modelName):
+    filePath = path.join(getcwd(), "..", "api-base", "src", "models", f"{fileName}")
+    
+    with open(filePath, 'r') as arquivo:
+        linhas = arquivo.readlines()
+
+    linha_desejada = linhas[5] 
+    partes = linha_desejada.split("'")
+    partes[1] = modelName
+    nova_linha = "'".join(partes)
+
+    linhas[5] = nova_linha
+
+    with open(filePath, 'w') as arquivo:
+        arquivo.writelines(linhas)
+    

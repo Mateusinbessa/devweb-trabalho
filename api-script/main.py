@@ -1,13 +1,13 @@
-from functions import generateModel, generateController, generateRoute, insertRouteIntoIndex, insertImportIntoIndex
+from functions import generateModel, generateController, generateRoute, insertRouteIntoIndex, insertImportIntoIndex, getModels, updateModelName
 from flask import Flask, request, jsonify
+from os import getcwd, path, listdir
 
 
 #API Configs
 app = Flask(__name__)
 app.json.sort_keys = False
 
-#Routes
-@app.route('/create', methods=['POST'])
+@app.route('/api/generate', methods=['POST'])
 def handlePost():
     # Getting the JSON data
     data = request.get_json()
@@ -34,6 +34,36 @@ def handlePost():
         "message": "Model generated sucessfully!",
     }
     return jsonify(response), 201
+
+@app.route('/api/all')
+def getModels():
+    modelFiles, models = getModels()
+    response = {
+        "models": models,
+        "files": modelFiles
+    }
+    return jsonify(response), 200
+    #TODO: FRONTEND VAI RECEBER ISSO, E LISTAR, NA HORA QUE CLICAR PRA ENVIAR VAI ENVIAR O MODELFILE OU CONTROLLERFILES
+  
+@app.route('/api/models', methods=['PUT'])  
+def update():
+    data = request.get_json()
+    
+    if not data:
+        return jsonify({"error": "No JSON data provided"}), 400
+
+    fileName = data.get('file')
+    modelName = data.get('model')
+    
+    updateModelName(fileName=fileName, modelName=modelName)
+    
+    response = {
+        "message": "Model updated sucessfully!"
+    }
+        
+    return jsonify(response), 201
+    
+    
 
 if __name__ == '__main__':
     app.run()
