@@ -46,7 +46,7 @@ def getModels():
     #TODO: FRONTEND VAI RECEBER ISSO, E LISTAR, NA HORA QUE CLICAR PRA ENVIAR VAI ENVIAR O MODELFILE OU CONTROLLERFILES
   
 @app.route('/api/models', methods=['PUT'])  
-def update():
+def updateModel():
     data = request.get_json()
     
     if not data:
@@ -62,7 +62,10 @@ def update():
     }
         
     return jsonify(response), 201
-    
+
+@app.route('/api/routes', methods=['PUT'])
+def updateRoute():
+    print('implementar isso ai depois, vou estudar pra prova')
     
 
 if __name__ == '__main__':
