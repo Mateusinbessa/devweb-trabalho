@@ -1,9 +1,9 @@
 import { credentials } from "./src/middleware/index.js"
 import { corsOptions } from "./src/configs/index.js"
-import { CarroRoutes } from './src/routes/index.js'
 import cookieParser from "cookie-parser"
 import express from "express";
 import cors from "cors";
+import { CarroRoutes , TesteRoutes } from './src/routes/index.js'
 
 //Initializing express
 const app = express();
@@ -21,6 +21,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 //Routes
+app.use('/teste', TesteRoutes);
 app.use('/carros', CarroRoutes);
 
 app.listen(3000, () => {
