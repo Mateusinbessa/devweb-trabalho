@@ -2,7 +2,6 @@ from functions import generateModel, generateController, generateRoute, insertRo
 from flask import Flask, request, jsonify
 from os import getcwd, path, listdir
 
-
 #API Configs
 app = Flask(__name__)
 app.json.sort_keys = False
@@ -81,8 +80,5 @@ def updateRoute():
     updateRouteName(routeName=newRoute, line=line_number)
     return jsonify({'message': 'Nome da rota atualizado com sucesso!'}), 200
     
-
-    
-
 if __name__ == '__main__':
     app.run()

@@ -201,9 +201,6 @@ def updateRouteName(routeName, line):
     linha_desejada = linhas[line] 
     partes = linha_desejada.split("'")
     
-    print("Linha original:", linha_desejada)
-    print("Partes:", partes)
-    
     partes[1] = routeName
     nova_linha = "'".join(partes)
 
