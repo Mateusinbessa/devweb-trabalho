@@ -21,8 +21,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 //Routes
-app.use('/teste', TesteRoutes);
-app.use('/carros', CarroRoutes);
+app.use('testando', TesteRoutes);
+app.use('carrinhos', CarroRoutes);
 
 app.listen(3000, () => {
   console.log(`Server Running on PORT: 3000!`);

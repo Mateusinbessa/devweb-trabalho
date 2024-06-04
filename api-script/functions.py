@@ -188,4 +188,37 @@ def updateModelName(fileName, modelName):
 
     with open(filePath, 'w') as arquivo:
         arquivo.writelines(linhas)
+
+def updateRouteName(routeName, line):
+    filePath = path.join(getcwd(), "..", "api-base", "index.js")
+    
+    with open(filePath, 'r', encoding='UTF-8') as arquivo:
+        linhas = arquivo.readlines()
+    
+    if line < 0 or line >= len(linhas):
+        raise IndexError(f"A linha {line} está fora do intervalo válido (0 a {len(linhas) - 1}).")
+
+    linha_desejada = linhas[line] 
+    partes = linha_desejada.split("'")
+    
+    print("Linha original:", linha_desejada)
+    print("Partes:", partes)
+    
+    partes[1] = routeName
+    nova_linha = "'".join(partes)
+
+    linhas[line] = nova_linha
+
+    with open(filePath, 'w', encoding='UTF-8') as arquivo:
+        arquivo.writelines(linhas)
+
+def getSpecificLine(filePath, string):
+    with open(filePath, 'r', encoding='UTF-8') as file:
+        lines = file.readlines()
+        for i, line in enumerate(lines):
+            if string in line:
+                return i, line.strip()
+    return None, None
+                
+
     

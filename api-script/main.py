@@ -1,4 +1,4 @@
-from functions import generateModel, generateController, generateRoute, insertRouteIntoIndex, insertImportIntoIndex, getModels, updateModelName
+from functions import generateModel, generateController, generateRoute, insertRouteIntoIndex, insertImportIntoIndex, getModels, updateModelName, updateRouteName, getSpecificLine
 from flask import Flask, request, jsonify
 from os import getcwd, path, listdir
 
@@ -65,7 +65,23 @@ def updateModel():
 
 @app.route('/api/routes', methods=['PUT'])
 def updateRoute():
-    print('implementar isso ai depois, vou estudar pra prova')
+    data = request.get_json()
+    
+    if not data:
+        return jsonify({"error": "No JSON data provided"}), 400
+
+    oldRoute = data.get('old_route')
+    newRoute = data.get('new_route')
+    filePath = path.join(getcwd(), "..", "api-base", "index.js")
+    line_number, line_content = getSpecificLine(filePath=filePath, string=oldRoute)
+    
+    if line_number is None:
+        return jsonify({"message": f"A rota {oldRoute} não foi encontrada no arquivo!"})
+        
+    updateRouteName(routeName=newRoute, line=line_number)
+    return jsonify({'message': 'Nome da rota atualizado com sucesso!'}), 200
+    
+
     
 
 if __name__ == '__main__':
