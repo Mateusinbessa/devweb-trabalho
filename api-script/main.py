@@ -35,7 +35,7 @@ def handlePost():
     return jsonify(response), 201
 
 @app.route('/api/all')
-def getModels():
+def getAll():
     modelFiles, models = getModels()
     response = {
         "models": models,
