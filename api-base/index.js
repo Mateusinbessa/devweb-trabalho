@@ -3,7 +3,7 @@ import { corsOptions } from "./src/configs/index.js"
 import cookieParser from "cookie-parser"
 import express from "express"
 import cors from "cors"
-import { RedeRoutes , TesteRoutes } from './src/routes/index.js'
+import { RedeRoutes } from './src/routes/index.js'
 
 //Initializing express
 const app = express()
@@ -21,7 +21,6 @@ app.use(express.json())
 app.use(cookieParser())
 
 //Routes
-app.use('/testes', TesteRoutes);
 app.use('/redes', RedeRoutes)
 
 app.listen(3000, () => {

@@ -24,8 +24,8 @@ const ModelGenerate = () => {
             route: data.route
         }
         try {
-            const data = await api.post('/ModelGenerate', request)
-            console.log(data)
+            const data = await api.post('/generate', request)
+            navigate('/list')
         } catch (error) {
             console.log(error)
         }

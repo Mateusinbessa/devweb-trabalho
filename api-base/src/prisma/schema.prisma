@@ -7,8 +7,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model carro {
-  id    Int    @id @default(autoincrement())
-  marca String @db.VarChar(50)
+model Departamento {
+  id          Int           @id @default(autoincrement())
+  nome        String?       @db.VarChar(100)
+  Funcionario Funcionario[]
 }
 
+model Funcionario {
+  id              Int           @id @default(autoincrement())
+  nome            String?       @db.VarChar(100)
+  departamento_id Int?
+  Departamento    Departamento? @relation(fields: [departamento_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Funcionario_ibfk_1")
+
+  @@index([departamento_id], map: "departamento_id")
+}
+
+model usuarios {
+  id           Int     @id @default(autoincrement())
+  name         String  @db.VarChar(155)
+  email        String  @db.VarChar(255)
+  pwd          String  @db.VarChar(255)
+  refreshToken String? @db.VarChar(255)
+}
+
+model carro {
+  id    Int    @id @default(autoincrement())
+  nome  String @db.VarChar(255)
+  marca String @db.VarChar(255)
+}
