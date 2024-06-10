@@ -1,3 +1,2 @@
 export * from './_base.js'
-export * from './_carro.js'
-export * from './_teste.js'
+export * from './_rede.js'

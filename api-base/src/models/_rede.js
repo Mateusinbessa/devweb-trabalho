@@ -1,9 +1,9 @@
 import { BaseModel } from './index.js';
 
-const TesteModel = () => {
+const RedeModel = () => {
     const base = BaseModel(
 		{
-        	model: 'Teste',
+        	model: 'rede',
         	junctionTable: ''
     	})
     return {
@@ -11,5 +11,5 @@ const TesteModel = () => {
     }
 }
 
-export default { TesteModel }
-export { TesteModel }
+export default { RedeModel }
+export { RedeModel }

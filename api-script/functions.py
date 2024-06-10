@@ -189,33 +189,39 @@ def updateModelName(fileName, modelName):
     with open(filePath, 'w') as arquivo:
         arquivo.writelines(linhas)
 
-def updateRouteName(routeName, line):
-    filePath = path.join(getcwd(), "..", "api-base", "index.js")
-    
-    with open(filePath, 'r', encoding='UTF-8') as arquivo:
-        linhas = arquivo.readlines()
-    
-    if line < 0 or line >= len(linhas):
-        raise IndexError(f"A linha {line} está fora do intervalo válido (0 a {len(linhas) - 1}).")
-
-    linha_desejada = linhas[line] 
-    partes = linha_desejada.split("'")
-    
-    partes[1] = routeName
-    nova_linha = "'".join(partes)
-
-    linhas[line] = nova_linha
-
-    with open(filePath, 'w', encoding='UTF-8') as arquivo:
-        arquivo.writelines(linhas)
-
 def getSpecificLine(filePath, string):
     with open(filePath, 'r', encoding='UTF-8') as file:
         lines = file.readlines()
         for i, line in enumerate(lines):
             if string in line:
-                return i, line.strip()
-    return None, None
+                return i
+    return None
+
+def updateRouteName(routeName, search,):
+    filePath = path.join(getcwd(), "..", "api-base", "index.js")
+    line_number = getSpecificLine(filePath=filePath, string=search)
+    
+    if line_number is None:
+        return f'A rota "{search}" não foi encontrada no arquivo!'
+    
+    with open(filePath, 'r', encoding='UTF-8') as arquivo:
+        linhas = arquivo.readlines()
+    
+    if line_number < 0 or line_number >= len(linhas):
+        raise IndexError(f"A linha {line_number} está fora do intervalo válido (0 a {len(linhas) - 1}).")
+
+    linha_desejada = linhas[line_number] 
+    partes = linha_desejada.split("'")
+    
+    partes[1] = routeName
+    nova_linha = "'".join(partes)
+
+    linhas[line_number] = nova_linha
+
+    with open(filePath, 'w', encoding='UTF-8') as arquivo:
+        arquivo.writelines(linhas)
+    
+    return 'Route name updated sucessfuly!'
                 
 
     
