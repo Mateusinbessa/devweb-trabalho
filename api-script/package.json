@@ -1,0 +1,9 @@
+{
+    "name": "api_generator",
+    "version": "1.0.0",
+    "description": "Generator of API",
+    "license": "MIT",
+    "scripts": {
+        "dev": "python3 main.py"
+    }
+}
