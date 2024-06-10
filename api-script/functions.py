@@ -197,6 +197,16 @@ def getSpecificLine(filePath, string):
                 return i
     return None
 
+def getAllRoutes(routeName):
+    filePath = path.join(getcwd(), "..", "api-base", "index.js")
+    with open(filePath, 'r', encoding='UTF-8') as file:
+        lines = file.readlines()
+        line_content = []
+        for i, line in enumerate(lines):
+            if routeName in line:
+                line_content.append(line.strip())
+    return line_content[1]
+
 def updateRouteName(routeName, search,):
     filePath = path.join(getcwd(), "..", "api-base", "index.js")
     line_number = getSpecificLine(filePath=filePath, string=search)

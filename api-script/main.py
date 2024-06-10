@@ -1,4 +1,6 @@
 #@Imports
+from os import getcwd, path, listdir
+from flask_cors import CORS
 from flask import (
     request, 
     jsonify,
@@ -12,14 +14,16 @@ from functions import (
     generateController, 
     updateModelName, 
     updateRouteName,
+    getAllRoutes,
     generateModel, 
     generateRoute, 
     getModels, 
 )
 
-#API Configs
+#@API Configs
 app = Flask(__name__)
 app.json.sort_keys = False
+CORS(app)
 
 @app.route('/api/generate', methods=['POST'])
 def handlePost():
@@ -59,11 +63,20 @@ def handlePost():
 def getAll():
     try:
         modelFiles, models = getModels()
-        
+        model_routes = []
+        for model in models:
+            routes = getAllRoutes(routeName=model)
+            model_routes.append(routes)
+        model_routes_formatted = []
+        for route in model_routes:
+            parts = route.split("'")
+            model_routes_formatted.append(parts[1])
+                    
         response = {
             "data": {
                 "models": models,
-                "files": modelFiles
+                "files": modelFiles,
+                "routes": model_routes_formatted,
             },
             "message": "Models listed sucessfully!"
         }
