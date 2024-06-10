@@ -71,12 +71,17 @@ def getAll():
         for route in model_routes:
             parts = route.split("'")
             model_routes_formatted.append(parts[1])
-                    
+            
+        ix = 0
+        models_formatted = []
+        for model in models:
+            model_obj = {"name": model, "file": modelFiles[ix], "route": model_routes_formatted[ix]}
+            models_formatted.append(model_obj)
+            ix+=1
+               
         response = {
             "data": {
-                "models": models,
-                "files": modelFiles,
-                "routes": model_routes_formatted,
+                "models": models_formatted
             },
             "message": "Models listed sucessfully!"
         }
