@@ -3,8 +3,10 @@ import { Auth, Public } from 'src/layout';
 import React from "react";
 
 //Auth
-const AdminPage = React.lazy(() => import('src/pages/private/roles/admin/dashboard'));
-const Home = React.lazy(() => import('src/pages/private/home'));
+// const AdminPage = React.lazy(() => import('src/pages/private/roles/admin/dashboard'));
+const ModelGenerate = React.lazy(() => import('src/pages/private/modelGenerate'));
+const ModelList = React.lazy(() => import('src/pages/private/modelList'));
+const ModelEdit = React.lazy(() => import('src/pages/private/modelEdit'));
 
 //Public
 const Forbidden = React.lazy(() => import('src/pages/public/forbidden'))
@@ -15,9 +17,16 @@ const routes = createBrowserRouter([
     {
         //Private routes
         path: 'auth', element: <Auth />, children: [
-            { path: '', element: <Navigate to='home' replace={true} /> },
-            { path: 'home', element: <Home /> },
-            { path: 'admin', element: <AdminPage /> },
+            { index: true, element: <Navigate to='model' replace={true} /> },
+            {
+                path: 'model', children: [
+                    { index: true, element: <Navigate to='generate' replace={true} /> },
+                    { path: 'generate', element: <ModelGenerate /> },
+                    { path: 'list', element: <ModelList /> },
+                    { path: 'edit', element: <ModelEdit /> },
+                ]
+            },
+            // { path: 'admin', element: <AdminPage /> },
             { path: '*', element: <Navigate to='/404' /> },
         ]
     },

@@ -1,4 +1,4 @@
-import { Outlet, Navigate } from 'react-router-dom'
+import { Outlet, Navigate, useNavigate } from 'react-router-dom'
 import { useUtil } from "src/hooks"
 import { useAuth } from 'src/hooks'
 
@@ -16,11 +16,12 @@ const Auth = () => {
         don't need to start from scratch, and it's not safe, IT COULD BE EASILY HACKED. 
     */
     const { getUser } = useUtil()
+    const navigate = useNavigate()
     const { signout } = useAuth()
     if (!getUser()) return <Navigate to='/login' replace />
     return (
         <section className='max-container padding-x'>
-            {/* <button type='button' className='btn' onClick={signout}>Logout</button> */}
+            <button type='button' className='btn' onClick={() => navigate('/')}>Home</button>
             <Outlet />
         </section>
     )

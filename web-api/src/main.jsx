@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import './styles/index.css'
 import routes from './routes'
 import { store } from 'src/app/store'
@@ -12,7 +12,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <HelmetProvider>
       <Provider store={store}>
-        <RouterProvider router={routes} />
+        <Suspense fallback={<div>...loading</div>}>
+          <RouterProvider router={routes} />
+        </Suspense>
       </Provider>
     </HelmetProvider>
   </React.StrictMode>,

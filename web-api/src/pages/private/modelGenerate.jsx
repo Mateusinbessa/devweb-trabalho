@@ -4,10 +4,14 @@ import { useForm } from 'react-hook-form'
 import { useUser } from 'src/hooks'
 import { useEffect } from 'react'
 import { api } from 'src/services'
+import { useNavigate } from 'react-router-dom'
+import { useTransition } from 'react'
 
-const Home = () => {
+const ModelGenerate = () => {
 
     const { read } = useUser()
+    const navigate = useNavigate()
+    const [isPending, startTransition] = useTransition()
     const { handleSubmit, register } = useForm()
 
     useEffect(() => {
@@ -22,11 +26,16 @@ const Home = () => {
             route: data.route
         }
         try {
-            const data = await api.post('/generate', request)
+            const data = await api.post('/ModelGenerate', request)
             console.log(data)
         } catch (error) {
             console.log(error)
         }
+    }
+    const handleClick = (e) => {
+        startTransition(() => {
+            navigate('/auth/model/list')
+        })
     }
 
     const user = useSelector((s) => s.user.user)
@@ -77,10 +86,12 @@ const Home = () => {
                     </div>
                     <button className='btn mt-3' type='submit'>Enviar</button>
                 </form>
+                <p className='btn mt-3' onClick={handleClick}>Ver Models</p>
             </div>
+            {isPending && <div className='loading-spinner'>Loading...</div>}
         </>
     )
 }
 
-export default Home
-export { Home }
+export default ModelGenerate
+export { ModelGenerate }
