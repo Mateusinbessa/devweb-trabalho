@@ -5,21 +5,18 @@ import { useEffect } from 'react'
 import { api } from 'src/services'
 import { Pencil } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { useTransition } from 'react'
 
 const ModelList = () => {
 
     const Model = useModel()
     const navigate = useNavigate()
-    const [isPending, startTransition] = useTransition()
+
 
     useEffect(() => {
         Model.readAll()
     }, [])
     const handleClick = (el) => {
-        startTransition(() => {
-            navigate(`/auth/model/edit?model=${el.name}&file=${el.file}&route=${el.route}`)
-        })
+        navigate(`/auth/model/edit?model=${el.name}&file=${el.file}&route=${el.route}`)
     }
 
     const { models } = useSelector((s) => s.model)
@@ -57,7 +54,6 @@ const ModelList = () => {
                     </tbody>
                 </table>
             </div>
-            {isPending && <div className='loading-spinner'>Loading...</div>}
         </>
     )
 }

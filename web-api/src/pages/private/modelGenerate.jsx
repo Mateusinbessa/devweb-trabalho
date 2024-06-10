@@ -5,13 +5,11 @@ import { useUser } from 'src/hooks'
 import { useEffect } from 'react'
 import { api } from 'src/services'
 import { useNavigate } from 'react-router-dom'
-import { useTransition } from 'react'
 
 const ModelGenerate = () => {
 
     const { read } = useUser()
     const navigate = useNavigate()
-    const [isPending, startTransition] = useTransition()
     const { handleSubmit, register } = useForm()
 
     useEffect(() => {
@@ -33,9 +31,7 @@ const ModelGenerate = () => {
         }
     }
     const handleClick = (e) => {
-        startTransition(() => {
-            navigate('/auth/model/list')
-        })
+        navigate('/auth/model/list')
     }
 
     const user = useSelector((s) => s.user.user)
@@ -88,7 +84,6 @@ const ModelGenerate = () => {
                 </form>
                 <p className='btn mt-3' onClick={handleClick}>Ver Models</p>
             </div>
-            {isPending && <div className='loading-spinner'>Loading...</div>}
         </>
     )
 }
