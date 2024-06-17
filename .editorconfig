@@ -1,0 +1,10 @@
+[*.{ts,tsx,js,jsx}] 
+indent_size = 2 # Define o tamanho da indentação como 2 espaços
+end_of_line = lf # Define o estilo de fim de linha como LF (Line Feed), usado em sistemas Unix/Linux
+charset = utf-8 # Define a codificação de caracteres como UTF-8
+trim_trailing_whitespace = true # Remove espaços em branco no final das linhas automaticamente
+insert_final_newline = true # Insere uma nova linha no final do arquivo se não houver uma
+indent_style = tab # Define o estilo de indentação para usar tabulações em vez de espaços
+max_line_length = 80 # Define o comprimento máximo de linha como 80 caracteres
+editor.formatOnSave = true # Formata o arquivo automaticamente ao salvar no editor
+

@@ -1,0 +1,9 @@
+{
+  "semi": false, // Desabilita o uso de ponto e vírgula no final das instruções
+  "singleQuote": true, // Utiliza aspas simples em vez de aspas duplas sempre que possível
+  "tabWidth": 2, // Define a largura da tabulação como 2 espaços
+  "bracketSpacing": true, // Insere espaços entre os colchetes de objetos
+  "trailingComma": "all", // Adiciona uma vírgula final em todos os elementos de objetos e arrays
+  "proseWrap": "always", // Quebra linhas de prosa (como markdown ou HTML) sempre
+  "printWidth": 80 // Define a largura máxima da linha como 80 caracteres
+}
