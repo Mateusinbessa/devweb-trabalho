@@ -63,34 +63,41 @@ def handlePost():
 def getAll():
     try:
         modelFiles, models = getModels()
+        if not modelFiles or not models or len(modelFiles) != len(models):
+            raise ValueError("Model files and models length mismatch or empty")
+
         model_routes = []
         for model in models:
             routes = getAllRoutes(routeName=model)
             model_routes.append(routes)
+
         model_routes_formatted = []
         for route in model_routes:
             parts = route.split("'")
+            if len(parts) < 2:
+                raise ValueError(f"Invalid route format: {route}")
             model_routes_formatted.append(parts[1])
-            
-        ix = 0
+
+        if len(model_routes_formatted) != len(models):
+            raise ValueError("Routes formatted and models length mismatch")
+
         models_formatted = []
-        for model in models:
+        for ix, model in enumerate(models):
             model_obj = {"name": model, "file": modelFiles[ix], "route": model_routes_formatted[ix]}
             models_formatted.append(model_obj)
-            ix+=1
-               
+
         response = {
             "data": {
                 "models": models_formatted
             },
-            "message": "Models listed sucessfully!"
+            "message": "Models listed successfully!"
         }
-        
+
         return jsonify(response), 200
     except Exception as e:
         print(e)
         return jsonify({'message': 'Something went wrong!'}), 500
-  
+    
 @app.route('/api/models', methods=['PUT'])  
 def updateModel():
     data = request.get_json()
